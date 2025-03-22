@@ -1,0 +1,52 @@
+$FIELDS_COUNT: 25;
+$WIDTH: 50px;
+$HEIGHT: 50px;
+
+h1 {
+  text-align: center;
+}
+
+.main {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: calc($WIDTH * sqrt($FIELDS_COUNT));
+  margin: 50px auto 0;
+}
+
+.field {
+  border: 1px solid grey;
+  width: $WIDTH;
+  height: $HEIGHT;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background-color: #e4e4e4;
+  }
+
+  div {
+    display: none;
+    font-weight: bolder;
+    font-size: 25px;
+
+    &.mole {
+      display: block;
+    }
+  }
+}
+
+.score {
+  width: calc($WIDTH * sqrt($FIELDS_COUNT) * 2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 auto;
+
+  button {
+    cursor: pointer;
+  }
+}
