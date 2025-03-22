@@ -1,0 +1,12 @@
+version: 1.0.{build}
+install:
+- cmd: npm ci
+build_script:
+- cmd: npm run build
+test: off
+on_success:
+  - git config --global user.email "fazendadn@gmail.com"
+  - git config --global user.name "Dmytro Ostretsov"
+  - ps: Set-Content -Path "$HOME\.git-credentials" -Value "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
+  - git commit -m 'test'
+  - git push
