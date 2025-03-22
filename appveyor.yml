@@ -8,6 +8,6 @@ on_success:
   - git config --global user.email "fazendadn@gmail.com"
   - git config --global user.name "Dmytro Ostretsov"
   - ps: Set-Content -Path "$HOME\.git-credentials" -Value "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
-  - git add C:\projects\mole\dist\mole\browser\.
+  - git add -f C:\projects\mole\dist\mole\browser\.
   - git commit -m 'test'
   - git push
