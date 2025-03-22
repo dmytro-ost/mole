@@ -1,0 +1,14 @@
+version: 1.0.{build}
+install:
+- cmd: npm ci
+build_script:
+- cmd: npm run build
+test: off
+deploy:
+- provider: GitHub
+  release: mole-v$(APPVEYOR_BUILD_VERSION)
+  auth_token:
+    secure: H9dSrAAcWR2p+/FyAFlxd7VMnLN8Irt1PF2eqB/BEmNkJlje+B9Rej2BVeF5FAOt
+  repository: dmytro-ost/dmytro-ost
+  artifact: /.*
+  draft: false
