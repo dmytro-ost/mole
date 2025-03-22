@@ -24,7 +24,7 @@ cache:
 # Environment variables (GitHub auth token)
 environment:
   GITHUB_AUTH_TOKEN:
-    secure: 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
+    secure: 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
 
 # Skip builds for commits with [skip ci]
 skip_commits:
