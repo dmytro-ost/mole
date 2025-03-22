@@ -1,0 +1,14 @@
+version: 1.0.{build}
+install:
+- cmd: npm ci
+build_script:
+- cmd: npm run build
+test_script:
+- cmd: npm run test
+deploy:
+- local-dir: dist
+- target-branch: main
+- github-token: $GITHUB_TOKEN
+- provider: pages
+  auth_token:
+    secure: UVaEtrl0de6B2M1uiG6kwOfiw7sk2qMZS7zGdSSz5s7cGHshQsEGXYeyfVEnoatxRoKZkFp4SpM6hVPNwuJJyno1exaUVV+S4/4CMzugmg8nUG97Ya4YPhH8OfkSFfi1
