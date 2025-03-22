@@ -36,7 +36,7 @@ build_script:
 artifacts:
 
   # pushing all *.nupkg files in build directory recursively
-  - path: 'dist\mole\browser\*.js,dist\mole\browser\*.css,dist\mole\browser\*.html'
+  - path: 'dist\mole\browser\*.js,dist\mole\browser\*.html'
 
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
@@ -46,4 +46,4 @@ deploy:
     repository: dmytro-ost/mmm
     auth_token:
       secure: UVaEtrl0de6B2M1uiG6kwLcbnUjdSED3PBnorBcpU8LUGP692TpYrlfXMw9+lHvN9XIj/vUZnT3g2jFc2QGP3+e5YH6d36MNnPiF2c/vcwtAFiJO9vjpIeZqHCtjQmwB
-    artifact: 
+    artifact: /.*\.*/
