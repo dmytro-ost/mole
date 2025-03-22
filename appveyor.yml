@@ -1,13 +1,107 @@
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
 version: 1.0.{build}
+
+# you can use {branch} name in version format too
+# version: 1.0.{build}-{branch}
+
+# branches to build
+branches:
+  # whitelist
+  only:
+    - main
+
+# Maximum number of concurrent jobs for the project
+max_jobs: 1
+
+#---------------------------------#
+#    environment configuration    #
+#---------------------------------#
+
+# Build worker image (VM template)
+image: Ubuntu2204
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf input
+
+# clone directory
+clone_folder: c:\projects\myproject
+
+# fetch repository as zip archive
+shallow_clone: true                 # default is "false"
+
+# set clone depth
+clone_depth: 5                      # clone entire repository history if not defined
+
+# environment variables
+#environment:
+#  my_variable:
+#    secure: UVaEtrl0de6B2M1uiG6kwJ/0yg5+/QBswMsc6ywG/8nyiJtobOz5K/gmR2/Gu4yFbVtH7oxqUXtyFeKx9ppDLGbO5Zvi8F2JuRjZkDybf1BeBvsAYPe0+qEuhAF/pq8H
+
+# build cache to preserve files/folders between builds
+cache:
+  - node_modules                    # local npm modules
+  
+# scripts that run after cloning repository
 install:
-- cmd: npm ci
+  - cmd: npm ci
+
+#---------------------------------#
+#       build configuration       #
+#---------------------------------#
+
+# build platform, i.e. x86, x64, Any CPU. This setting is optional.
+platform: Any CPU
+
+# build Configuration, i.e. Debug, Release, etc.
+configuration: Release
+
+# Build settings, not to be confused with "before_build" and "after_build".
+# "project" is relative to the original build directory and not influenced by directory changes in "before_build".
+
+# to run your custom scripts instead of automatic MSBuild
 build_script:
-- cmd: npm run build
-test: off
-on_success:
-  - git config --global user.email "fazendadn@gmail.com"
-  - git config --global user.name "Dmytro Ostretsov"
-  - ps: Set-Content -Path "$HOME\.git-credentials" -Value "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
-  - git add -f C:\projects\mole\dist\mole\browser\.
-  - git commit -m 'test'
-  - git push
+  - cmd: npm run build
+
+#---------------------------------#
+#       tests configuration       #
+#---------------------------------#
+
+# to run your custom scripts instead of automatic tests
+test_script:
+  - cmd: npm run test
+
+#---------------------------------#
+#      artifacts configuration    #
+#---------------------------------#
+
+artifacts:
+
+  # pushing all *.nupkg files in build directory recursively
+  - path: '**\*.js', '**\*.html', '**\*.htm', '**\*.css'
+
+
+#---------------------------------#
+#     deployment configuration    #
+#---------------------------------#
+
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+deploy:
+    # Deploy to GitHub Releases
+  - provider: GitHub
+    auth_token:
+      secure: UVaEtrl0de6B2M1uiG6kwJ/0yg5+/QBswMsc6ywG/8nyiJtobOz5K/gmR2/Gu4yFbVtH7oxqUXtyFeKx9ppDLGbO5Zvi8F2JuRjZkDybf1BeBvsAYPe0+qEuhAF/pq8H
+    artifact: /.*\.*/           # upload all NuGet packages to release assets
+    draft: false
+    prerelease: false
