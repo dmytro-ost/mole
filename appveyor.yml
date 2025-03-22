@@ -5,10 +5,27 @@ build_script:
 - cmd: npm run build
 test_script:
 - cmd: npm run test
-deploy:
-- local-dir: dist
-- target-branch: main
-- github-token: $GITHUB_TOKEN
-- provider: pages
-  auth_token:
-    secure: UVaEtrl0de6B2M1uiG6kwOfiw7sk2qMZS7zGdSSz5s7cGHshQsEGXYeyfVEnoatxRoKZkFp4SpM6hVPNwuJJyno1exaUVV+S4/4CMzugmg8nUG97Ya4YPhH8OfkSFfi1
+deploy_script:
+  - ps: |
+      git config --global user.email "fazendadn@gmail.com"
+      git config --global user.name "Dmytro Ostretsov"
+      git clone -b gh-pages https://$env:GITHUB_AUTH_TOKEN@github.com/dmytro-ost/dmytro-ost.git deploy
+      cd deploy
+      rm -rf *  # Remove old content
+      cp -r ../dist/* .  # Copy only the built site
+      git add .
+      git commit -m "Deploy to GitHub Pages [skip ci]"
+      git push origin gh-pages
+
+# Cache dependencies for faster builds
+cache:
+  - node_modules
+
+# Environment variables (GitHub auth token)
+environment:
+  GITHUB_AUTH_TOKEN:
+    secure: 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
+
+# Skip builds for commits with [skip ci]
+skip_commits:
+  message: /.*\[skip ci\].*/
