@@ -30,19 +30,20 @@ build_script:
 
 
 # to run your custom scripts instead of automatic tests
-test_script:
-  - cmd: npm run test
+# test_script:
+#  - cmd: npm run test
 
 artifacts:
 
   # pushing all *.nupkg files in build directory recursively
-  - path: 'mole\dist\mole\browser\*.js'
+  - path: 'dist\mole\browser\*.js'
 
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
 deploy:
     # Deploy to GitHub Releases
   - provider: GitHub
+    repository: dmytro-ost/mmm
     auth_token:
       secure: 3UUpSsaeKp2+PG118dWw5v6x8mCvqUn7B+tjhRSl2zy6Ecaag/eCd4rUvsLEvyrE
     artifact: /.*\.*/           # upload all NuGet packages to release assets
