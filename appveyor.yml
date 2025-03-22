@@ -36,7 +36,7 @@ test_script:
 artifacts:
 
   # pushing all *.nupkg files in build directory recursively
-  - path: '**\*.js, **\*.html, **\*.htm, **\*.css'
+  - path: 'C:\projects\myproject\dist\mole\browser\*.js, C:\projects\myproject\dist\mole\browser\*.html, C:\projects\myproject\dist\mole\browser\*.htm, C:\projects\myproject\dist\mole\browser\*.css'
 
 # providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
 # provider names are case-sensitive!
