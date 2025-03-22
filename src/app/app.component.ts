@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
 import { configGame } from './constants';
 
 export type Timeout = ReturnType<typeof setTimeout>;
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
@@ -63,9 +61,7 @@ export class AppComponent implements OnInit {
     }
   }
 
-  private getRandomInt(min: number, max: number): number {
-    const minCeiled = Math.ceil(min);
-    const maxFloored = Math.floor(max);
-    return Math.floor(Math.random() * (maxFloored - minCeiled) + minCeiled); // The maximum is exclusive and the minimum is inclusive
+  private getRandomInt(min: number, max: number): number { // The maximum is exclusive and the minimum is inclusive
+    return Math.floor(Math.random() * (max - min) + min); 
   }
 }
