@@ -16,7 +16,7 @@ init:
   - git config --global core.autocrlf input
 
 # clone directory
-clone_folder: c:\projects\myproject
+# clone_folder: c:\projects\myproject
 
 # build cache to preserve files/folders between builds
 cache:
@@ -30,8 +30,8 @@ build_script:
 
 
 # to run your custom scripts instead of automatic tests
-# test_script:
-#  - cmd: npm run test
+test_script:
+  - cmd: npm run test
 
 artifacts:
 
