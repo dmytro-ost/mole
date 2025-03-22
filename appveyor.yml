@@ -44,7 +44,7 @@ deploy:
     # Deploy to GitHub Releases
   - provider: GitHub
     auth_token:
-      secure: UVaEtrl0de6B2M1uiG6kwJ/0yg5+/QBswMsc6ywG/8nyiJtobOz5K/gmR2/Gu4yFbVtH7oxqUXtyFeKx9ppDLGbO5Zvi8F2JuRjZkDybf1BeBvsAYPe0+qEuhAF/pq8H
+      secure: 3UUpSsaeKp2+PG118dWw5v6x8mCvqUn7B+tjhRSl2zy6Ecaag/eCd4rUvsLEvyrE
     artifact: /.*\.*/           # upload all NuGet packages to release assets
     draft: false
     prerelease: false
