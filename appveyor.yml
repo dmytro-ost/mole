@@ -1,13 +1,49 @@
+# Notes:
+#   - Minimal appveyor.yml file is an empty file. All sections are optional.
+#   - Indent each level of configuration with 2 spaces. Do not use tabs!
+#   - All section names are case-sensitive.
+#   - Section names should be unique on each level.
+
+#---------------------------------#
+#      general configuration      #
+#---------------------------------#
+
+# version format
 version: 1.0.{build}
+
+# scripts that are called at very beginning, before repo cloning
+init:
+  - git config --global core.autocrlf input
+
+# clone directory
+# clone_folder: c:\projects\myproject
+
+# build cache to preserve files/folders between builds
+cache:
+  - node_modules                    # local npm modules
+  
 install:
-- cmd: npm ci
+  - cmd: npm ci
+
 build_script:
-- cmd: npm run build
-test: off
-on_success:
-  - git config --global user.email "fazendadn@gmail.com"
-  - git config --global user.name "Dmytro Ostretsov"
-  - ps: Set-Content -Path "$HOME\.git-credentials" -Value "https://$($env:access_token):x-oauth-basic@github.com`n" -NoNewline
-  - git add -f C:\projects\mole\dist\mole\browser\.
-  - git commit -m 'test'
-  - git push
+  - cmd: npm run build
+
+
+# to run your custom scripts instead of automatic tests
+test_script:
+  - cmd: npm run test
+
+artifacts:
+
+  # pushing all *.nupkg files in build directory recursively
+  - path: 'dist\mole\browser\*.js,dist\mole\browser\*.html'
+
+# providers: Local, FTP, WebDeploy, AzureCS, AzureBlob, S3, NuGet, Environment
+# provider names are case-sensitive!
+deploy:
+    # Deploy to GitHub Releases
+  - provider: GitHub
+    repository: dmytro-ost/mmm
+    auth_token:
+      secure: UVaEtrl0de6B2M1uiG6kwLcbnUjdSED3PBnorBcpU8LUGP692TpYrlfXMw9+lHvN9XIj/vUZnT3g2jFc2QGP3+e5YH6d36MNnPiF2c/vcwtAFiJO9vjpIeZqHCtjQmwB
+    artifact: /.*\.(js|html|css|htm)/
