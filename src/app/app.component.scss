@@ -24,10 +24,6 @@ h1 {
   justify-content: center;
   align-items: center;
 
-  &:hover {
-    background-color: #e4e4e4;
-  }
-
   div {
     display: none;
     font-weight: bolder;
@@ -40,7 +36,7 @@ h1 {
 }
 
 .score {
-  width: calc($WIDTH * sqrt($FIELDS_COUNT) * 2);
+  max-width: calc($WIDTH * sqrt($FIELDS_COUNT) * 2);
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -48,5 +44,41 @@ h1 {
 
   button {
     cursor: pointer;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .score {
+    flex-direction: column;
+  }
+
+  .main {
+    margin: 20px auto 0;
+  }
+
+  h2 {
+    margin: 5px;
+    padding: 0;
+  }
+
+  button {
+    height: 40px;
+    width: 200px;
+    order: 1;
+    font-size: 20px;
+    margin-top: 8px;
+  }
+
+}
+
+@media (hover: hover) {
+  .field:hover {
+    background-color: #e4e4e4;
+  }
+}
+
+@media (hover: none) {
+  .field:active {
+    background-color: #e4e4e4;
   }
 }
