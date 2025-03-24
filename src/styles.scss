@@ -1,1 +1,20 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'styles_var.scss';
+
+:root {
+    --cell-width: #{styles_var.$CELL_WIDTH};
+}
+
+body {
+    margin: 0;
+    padding: 0;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@media screen and (max-width: 550px) {
+    :root {
+        --cell-width: calc((100vw - 10px) / #{sqrt(styles_var.$FIELDS_COUNT)});
+    }
+}

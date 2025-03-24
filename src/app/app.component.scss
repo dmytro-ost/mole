@@ -1,6 +1,4 @@
-$FIELDS_COUNT: 25;
-$WIDTH: 50px;
-$HEIGHT: 50px;
+@use '../styles_var.scss';
 
 h1 {
   text-align: center;
@@ -9,16 +7,14 @@ h1 {
 .main {
   display: flex;
   flex-wrap: wrap;
-
-  width: calc($WIDTH * sqrt($FIELDS_COUNT));
+  width: calc(var(--cell-width) * sqrt(styles_var.$FIELDS_COUNT));
   margin: 50px auto 0;
 }
 
 .field {
   border: 1px solid grey;
-  width: $WIDTH;
-  height: $HEIGHT;
-  box-sizing: border-box;
+  width: var(--cell-width);
+  height: var(--cell-width);
   cursor: pointer;
   display: flex;
   justify-content: center;
@@ -27,7 +23,8 @@ h1 {
   div {
     display: none;
     font-weight: bolder;
-    font-size: 25px;
+    font-size: 50px;
+    margin-bottom: 7px;
 
     &.mole {
       display: block;
@@ -36,20 +33,25 @@ h1 {
 }
 
 .score {
-  max-width: calc($WIDTH * sqrt($FIELDS_COUNT) * 2);
+  max-width: calc(var(--cell-width) * sqrt(styles_var.$FIELDS_COUNT) * 2);
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  margin: 0 auto;
+  margin: 15px auto;
 
   button {
     cursor: pointer;
+    padding: 5px 10px;
   }
 }
 
 @media screen and (max-width: 550px) {
   .score {
     flex-direction: column;
+  }
+
+  .field div {
+    font-size: 55px;
   }
 
   .main {
@@ -62,23 +64,24 @@ h1 {
   }
 
   button {
-    height: 40px;
+    height: 80px;
     width: 200px;
     order: 1;
     font-size: 20px;
     margin-top: 8px;
   }
 
+
 }
 
 @media (hover: hover) {
   .field:hover {
-    background-color: #e4e4e4;
+    background-color: styles_var.$HOVER_COLOR;
   }
 }
 
 @media (hover: none) {
   .field:active {
-    background-color: #e4e4e4;
+    background-color: styles_var.$HOVER_COLOR;
   }
 }
