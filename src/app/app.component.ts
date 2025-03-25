@@ -24,14 +24,32 @@ export class AppComponent implements OnInit {
   onStartNewGame() {
     this.score = 0;
     this.loose = 0;
-    this.pause();
+    this.gameField = new Array(configGame.FIELDS_COUNT).fill(0);
+    this.startNewGameStep();
   }
 
-  gameLoop() {
+  startNewGameStep() {
+    this.gameField.fill(0);
+    this.clearTimers();
+    this.pauseTimerID = setTimeout(
+      this.gameTurn.bind(this),
+      this.getRandomInt(configGame.PAUSE[0], configGame.PAUSE[1])
+    );
+  }
+
+  gameTurn() {
+    this.showSymbol();
+    this.startPause();
+  }
+
+  showSymbol() {
     const id = this.getRandomInt(0, configGame.FIELDS_COUNT);
     this.gameField[id] = 1;
+  }
+
+  startPause() {
     this.gameTimerID = setTimeout(
-      this.pause.bind(this),
+      this.startNewGameStep.bind(this),
       this.getRandomInt(
         configGame.TIMER_TO_SHOW[0],
         configGame.TIMER_TO_SHOW[1]
@@ -39,14 +57,9 @@ export class AppComponent implements OnInit {
     );
   }
 
-  pause() {
-    this.gameField = new Array(configGame.FIELDS_COUNT).fill(0);
+  clearTimers() {
     clearTimeout(this.pauseTimerID);
     clearTimeout(this.gameTimerID);
-    this.pauseTimerID = setTimeout(
-      this.gameLoop.bind(this),
-      this.getRandomInt(configGame.PAUSE[0], configGame.PAUSE[1])
-    );
   }
 
   onClick(event: MouseEvent) {
@@ -62,6 +75,6 @@ export class AppComponent implements OnInit {
   }
 
   private getRandomInt(min: number, max: number): number { // The maximum is exclusive and the minimum is inclusive
-    return Math.floor(Math.random() * (max - min) + min); 
+    return Math.floor(Math.random() * (max - min) + min);
   }
 }
